@@ -22,7 +22,7 @@ $(document).ready(function () {
             6: "slateBlue",
             7: "grey",
             8: "pink",
-            closedCell: "green",
+            "closedCell": "green",
         }
     }
 
@@ -87,17 +87,23 @@ $(document).ready(function () {
 
     initGame();
 
-    function createCell() {
+    function renderBoard() {
+        boardContainer.html("");
         for (i = 0; i < game.level.row; i++) {
             const newRow = $(`<div class="row" id="row-${i}"></div>`);
             for (y = 0; y < game.level.column; y++) {
                 let newCell = "";
-                if (game.board[i][y].hasMine) {
-                    newCell = $(`<div class="col" id="${i}-${y}">mine</div>`);
+                if (game.board[i][y].isOpened) {
+                    if (game.board[i][y].hasMine) {
+                        newCell = $(`<div class="col" id="${i}-${y}">mine</div>`);
+                    } else {
+                        const mineAround = game.board[i][y].mineAround;
+                        newCell = $(`<div class="col" id="${i}-${y}">${mineAround}</div>`);
+                        newCell.css("color", game.colors[mineAround])
+                    }
                 } else {
-                    const mineAround = game.board[i][y].mineAround;
-                    newCell = $(`<div class="col" id="${i}-${y}">${mineAround}</div>`);
-                    newCell.css("color", game.colors[mineAround])
+                    newCell = $(`<div class="col" id="${i}-${y}"></div>`);
+                    newCell.css("background-color", game.colors["closedCell"]);
                 }
                 newCell.css("border-style", "dotted");
                 newRow.append(newCell);
@@ -107,7 +113,7 @@ $(document).ready(function () {
     }
 
     mineLeftCounter.html(`${game.mineLeft}`);
-    createCell();
+    renderBoard();
 
     boardContainer.on("click", function (e) {
         const getCellId = e.target.id;
@@ -116,6 +122,7 @@ $(document).ready(function () {
         const column = splitId[1];
         game.board[row][column].isOpened = true;
         console.log(game.board[row][column]);
+        renderBoard();
     })
 
 });
