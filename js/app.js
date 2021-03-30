@@ -1,3 +1,24 @@
+const game = {
+    level: {
+        name: easy,
+        row: 10,
+        column: 10,
+        mine:5,
+    },
+    board: [],
+    mineLeft:0,
+    timer: 120,
+    gameOver: false,
+    colors: {
+        0: "white",
+        1: "blue",
+        2: "red",
+        3: "black",
+        closedCell: "green",
+    }
+}
+
+
 const boardContainer = $("#board-container")
 
 function createCell() {
