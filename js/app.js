@@ -13,17 +13,22 @@ $(document).ready(function () {
         timer: 120,
         gameOver: false,
         colors: {
-            0: "violet",
+            0: "light grey",
             1: "dodgerBlue",
             2: "tomato",
             3: "black",
-            4: "yellow",
+            4: "orange",
+            5: "violet",
+            6: "slateBlue",
+            7: "grey",
+            8: "pink",
             closedCell: "green",
         }
     }
 
     // DOM Events
-    const boardContainer = $("#board-container")
+    const boardContainer = $("#board-container");
+    const mineLeftCounter = $("#mineLeft");
 
 
     function initGame() {
@@ -101,7 +106,16 @@ $(document).ready(function () {
         }
     }
 
-
+    mineLeftCounter.html(`${game.mineLeft}`);
     createCell();
+
+    boardContainer.on("click", function (e) {
+        const getCellId = e.target.id;
+        const splitId = getCellId.split("-");
+        const row = splitId[0];
+        const column = splitId[1];
+        game.board[row][column].isOpened = true;
+        console.log(game.board[row][column]);
+    })
 
 });
