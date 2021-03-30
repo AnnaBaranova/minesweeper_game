@@ -29,10 +29,12 @@ $(document).ready(function () {
     // DOM Events
     const boardContainer = $("#board-container");
     const mineLeftCounter = $("#mineLeft");
+    const restartGame = $("#restart-game");
 
 
     function initGame() {
         // function create 2D array board
+        game.board = [];
         for (i = 0; i < game.level.row; i++) {
             const newRow = [];
             for (y = 0; y < game.level.column; y++) {
@@ -122,6 +124,12 @@ $(document).ready(function () {
         const column = splitId[1];
         game.board[row][column].isOpened = true;
         console.log(game.board[row][column]);
+        renderBoard();
+    })
+
+    restartGame.on("click", function(){
+        console.log("hehe")
+        initGame();
         renderBoard();
     })
 
