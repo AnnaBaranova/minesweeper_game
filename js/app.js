@@ -175,9 +175,16 @@ $(document).ready(function () {
      if (game.board[row][column].hasMine) {
          alert ("Mineeeeeeee!!!!!!")
          game.gameOver = true;
-
+     } else {
+         if (checkAllOpen()) {
+            game.gameOver = true;
+            alert ("OOOOOOK you win")
+         }
      }
+
  }
+
+ function checkAllOpen (){}
 
     initGame();
     renderBoard();
