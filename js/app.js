@@ -27,10 +27,9 @@ $(document).ready(function () {
     }
 
     // DOM selectors
-    // add $
-    const boardContainer = $("#board-container");
-    const mineLeftCounter = $("#mineLeft");
-    const restartGame = $("#restart-game");
+    const $boardContainer = $("#board-container");
+    const $mineLeftCounter = $("#mineLeft");
+    const $restartGame = $("#restart-game");
 
 
     function initGame() {
@@ -92,7 +91,7 @@ $(document).ready(function () {
 
 
     function renderBoard() {
-        boardContainer.html("");
+        $boardContainer.html("");
         for (i = 0; i < game.level.row; i++) {
             const newRow = $(`<div class="row" id="row-${i}"></div>`);
             for (y = 0; y < game.level.column; y++) {
@@ -100,74 +99,51 @@ $(document).ready(function () {
                 if (game.board[i][y].isOpened) {
                     if (game.board[i][y].hasMine) {
                         newCell = $(`<div class="col" id="${i}-${y}">mine</div>`);
+                        newCell.css("background-color", "pink"); 
                     } else {
                         const mineAround = game.board[i][y].mineAround;
                         newCell = $(`<div class="col" id="${i}-${y}">${mineAround}</div>`);
                         newCell.css("color", game.colors[mineAround])
                     }
                 } else {
-                    newCell = $(`<div class="col" id="${i}-${y}"></div>`);
-                    newCell.css("background-color", game.colors["closedCell"]);
+                    if (game.gameOver && game.board[i][y].hasMine) {
+                        newCell = $(`<div class="col" id="${i}-${y}">mine</div>`);
+                        newCell.css("background-color", "pink"); 
+                    } else {
+                        newCell = $(`<div class="col" id="${i}-${y}"></div>`);
+                        newCell.css("background-color", game.colors["closedCell"]); 
+                    }
                 }
                 newCell.css("border-style", "dotted");
                 newRow.append(newCell);
             }
-            boardContainer.append(newRow);
+            $boardContainer.append(newRow);
         }
     }
 
-    mineLeftCounter.html(`${game.mineLeft}`);
+    $mineLeftCounter.html(`${game.mineLeft}`);
 
 
-    boardContainer.on("click", function (e) {
+    $boardContainer.on("click", function (e) {
+       if(!game.gameOver) {
         const getCellId = e.target.id;
         const splitId = getCellId.split("-");
         const row = parseInt(splitId[0]);
         const column = parseInt(splitId[1]);
         // game.board[row][column].isOpened = true;
         // console.log(game.board[row][column]);
-        clearCellsAround(row, column);
+        checkWinner(row,column);
+        clearCellsAround(row, column); 
         renderBoard();
+       }
     })
 
-    restartGame.on("click", function () {
+    $restartGame.on("click", function () {
         console.log(game);
         initGame();
         renderBoard();
     })
 
-    // function clearCellsAround(row, column) {
-
-    //     if (row >= 0 && row < game.level.row && column >= 0 && column < game.level.column) {
-    //         game.board[row][column].isOpened = true;
-    //         if (game.board[row][column].mineAround === 0 && !game.board[row][column].hasMine) {
-    //             // clearCellsAround(row - 1, column - 1);
-    //             clearCellsAround(row - 1, column);
-    //             // clearCellsAround(row - 1, column + 1);
-
-    //             clearCellsAround(row, column - 1);
-    //             clearCellsAround(row, column + 1);
-
-    //             // clearCellsAround(row + 1, column - 1);
-    //             clearCellsAround(row + 1, column);
-    //             // clearCellsAround(row + 1, column + 1);
-
-
-    //             // game.board[row - 1][column - 1].isOpened = true;
-    //             // game.board[row - 1][column].isOpened = true;
-    //             // game.board[row - 1][column + 1].isOpened = true;
-
-    //             // game.board[row][column - 1].isOpened = true;
-    //             // game.board[row][column + 1].isOpened = true;
-
-    //             // game.board[row + 1][column - 1].isOpened = true;
-    //             // game.board[row + 1][column].isOpened = true;
-    //             // game.board[row + 1][column + 1].isOpened = true;
-
-
-    //         }
-    //     }
-    // }
 
     function clearCellsAround(clickedrow, clickedcolumn) {
         const cellAround = [];
@@ -195,6 +171,14 @@ $(document).ready(function () {
             }
         }
     }
+ function checkWinner (row,column) {
+     if (game.board[row][column].hasMine) {
+         alert ("Mineeeeeeee!!!!!!")
+         game.gameOver = true;
+
+     }
+ }
+
     initGame();
     renderBoard();
 });
