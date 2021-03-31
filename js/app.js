@@ -26,7 +26,8 @@ $(document).ready(function () {
         }
     }
 
-    // DOM Events
+    // DOM selectors
+    // add $
     const boardContainer = $("#board-container");
     const mineLeftCounter = $("#mineLeft");
     const restartGame = $("#restart-game");
@@ -35,6 +36,7 @@ $(document).ready(function () {
     function initGame() {
         // function create 2D array board
         game.board = [];
+        game.mineLeft = 0;
         for (i = 0; i < game.level.row; i++) {
             const newRow = [];
             for (y = 0; y < game.level.column; y++) {
@@ -87,7 +89,7 @@ $(document).ready(function () {
         }
     }
 
-    initGame();
+
 
     function renderBoard() {
         boardContainer.html("");
@@ -115,22 +117,84 @@ $(document).ready(function () {
     }
 
     mineLeftCounter.html(`${game.mineLeft}`);
-    renderBoard();
+
 
     boardContainer.on("click", function (e) {
         const getCellId = e.target.id;
         const splitId = getCellId.split("-");
-        const row = splitId[0];
-        const column = splitId[1];
-        game.board[row][column].isOpened = true;
-        console.log(game.board[row][column]);
+        const row = parseInt(splitId[0]);
+        const column = parseInt(splitId[1]);
+        // game.board[row][column].isOpened = true;
+        // console.log(game.board[row][column]);
+        clearCellsAround(row, column);
         renderBoard();
     })
 
-    restartGame.on("click", function(){
-        console.log("hehe")
+    restartGame.on("click", function () {
+        console.log(game);
         initGame();
         renderBoard();
     })
 
+    // function clearCellsAround(row, column) {
+
+    //     if (row >= 0 && row < game.level.row && column >= 0 && column < game.level.column) {
+    //         game.board[row][column].isOpened = true;
+    //         if (game.board[row][column].mineAround === 0 && !game.board[row][column].hasMine) {
+    //             // clearCellsAround(row - 1, column - 1);
+    //             clearCellsAround(row - 1, column);
+    //             // clearCellsAround(row - 1, column + 1);
+
+    //             clearCellsAround(row, column - 1);
+    //             clearCellsAround(row, column + 1);
+
+    //             // clearCellsAround(row + 1, column - 1);
+    //             clearCellsAround(row + 1, column);
+    //             // clearCellsAround(row + 1, column + 1);
+
+
+    //             // game.board[row - 1][column - 1].isOpened = true;
+    //             // game.board[row - 1][column].isOpened = true;
+    //             // game.board[row - 1][column + 1].isOpened = true;
+
+    //             // game.board[row][column - 1].isOpened = true;
+    //             // game.board[row][column + 1].isOpened = true;
+
+    //             // game.board[row + 1][column - 1].isOpened = true;
+    //             // game.board[row + 1][column].isOpened = true;
+    //             // game.board[row + 1][column + 1].isOpened = true;
+
+
+    //         }
+    //     }
+    // }
+
+    function clearCellsAround(clickedrow, clickedcolumn) {
+        const cellAround = [];
+        cellAround.push({ row: clickedrow, column: clickedcolumn });
+        console.log(cellAround.length)
+        while (cellAround.length > 0) {
+            const clickedCell = cellAround.pop();
+            console.log(cellAround)
+            if (clickedCell.row >= 0 && clickedCell.row < game.level.row && clickedCell.column >= 0 && clickedCell.column < game.level.column) {
+                if (!game.board[clickedCell.row][clickedCell.column].isOpened) {
+                    game.board[clickedCell.row][clickedCell.column].isOpened = true;
+                    if (game.board[clickedCell.row][clickedCell.column].mineAround === 0 && !game.board[clickedCell.row][clickedCell.column].hasMine) {
+
+                        cellAround.push({ row: clickedCell.row - 1, column: clickedCell.column - 1 });
+                        cellAround.push({ row: clickedCell.row - 1, column: clickedCell.column });
+                        cellAround.push({ row: clickedCell.row - 1, column: clickedCell.column + 1 });
+                        cellAround.push({ row: clickedCell.row, column: clickedCell.column - 1 });
+                        cellAround.push({ row: clickedCell.row, column: clickedCell.column + 1 });
+                        cellAround.push({ row: clickedCell.row + 1, column: clickedCell.column - 1 });
+                        cellAround.push({ row: clickedCell.row + 1, column: clickedCell.column });
+                        cellAround.push({ row: clickedCell.row + 1, column: clickedCell.column + 1 });
+
+                    }
+                }
+            }
+        }
+    }
+    initGame();
+    renderBoard();
 });
