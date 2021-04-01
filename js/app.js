@@ -31,6 +31,8 @@ $(document).ready(function () {
     const $mineLeftCounter = $("#mineLeft");
     const $restartGame = $("#restart-game");
     const $gameLavel = $("#level");
+    const $modal = $("#modal");
+    const $result = $("#result");
 
 
     function initGame() {
@@ -194,12 +196,15 @@ $(document).ready(function () {
     }
     function checkWinner(row, column) {
         if (game.board[row][column].hasMine) {
-            alert("Mineeeeeeee!!!!!!")
+            $result.html("Ohhhh, it was a MINE");
+            $modal.modal("show");
+            
             game.gameOver = true;
         } else {
             if (checkAllOpen()) {
                 game.gameOver = true;
-                alert("OOOOOOK you win")
+                $result.html("you wooooooon!!!!!!");
+                $modal.modal("show");
             }
         }
 
