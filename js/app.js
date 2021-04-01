@@ -30,6 +30,7 @@ $(document).ready(function () {
     const $boardContainer = $("#board-container");
     const $mineLeftCounter = $("#mineLeft");
     const $restartGame = $("#restart-game");
+    const $gameLavel = $("#level");
 
 
     function initGame() {
@@ -63,8 +64,7 @@ $(document).ready(function () {
                 surroundMine(randomRow, randomColumn);
             }
         }
-        console.log(game.board);
-        console.log(game.mineLeft);
+     
     }
 
     function surroundMine(row, column) {
@@ -92,6 +92,7 @@ $(document).ready(function () {
 
     function renderBoard() {
         $mineLeftCounter.html(`${game.mineLeft}`);
+        $gameLavel.html(`${game.level.name}`);
         $boardContainer.html("");
         for (i = 0; i < game.level.row; i++) {
             const newRow = $(`<div class="row" id="row-${i}"></div>`);
