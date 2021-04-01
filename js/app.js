@@ -26,7 +26,18 @@ $(document).ready(function () {
         }
     }
 
+    const levels = [
+        {name: "easy", row: 10, column: 10, mine: 10,},
+        {name: "medium", row: 10, column: 10, mine: 20,},
+        {name: "hard", row: 20, column: 20, mine: 30,},
+        {name: "insaine", row: 10, column: 10, mine: 30,},
+    ]
+
+
+    }
+
     // DOM selectors
+    
     const $boardContainer = $("#board-container");
     const $mineLeftCounter = $("#mineLeft");
     const $restartGame = $("#restart-game");
@@ -66,7 +77,7 @@ $(document).ready(function () {
                 surroundMine(randomRow, randomColumn);
             }
         }
-     
+
     }
 
     function surroundMine(row, column) {
@@ -198,7 +209,7 @@ $(document).ready(function () {
         if (game.board[row][column].hasMine) {
             $result.html("Ohhhh, it was a MINE");
             $modal.modal("show");
-            
+
             game.gameOver = true;
         } else {
             if (checkAllOpen()) {
