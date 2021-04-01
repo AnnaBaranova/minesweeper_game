@@ -1,3 +1,11 @@
+
+body {
+    background-image: url("../img/24ET9cd-plants-vs-zombies-wallpaper.jpg");
+    background-size: cover;
+}
 .col {
-    height: 60px;
+    height: 40px;
+}
+#game-name{
+    font-family: 'Creepster', cursive;
 }

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -24,7 +26,7 @@
     <!-- jumbotron -->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 text-center">Cool minesweeper</h1>
+            <h1 class="display-4 text-center" id="game-name">Brains minesweeper</h1>
             <p class="lead text-center">This is a classic game with new touches</p>
         </div>
     </div>
@@ -56,7 +58,8 @@
                             </div>
                             <div class="modal-body" id="result"></div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                    value="Close">Close</button>
                             </div>
                         </div>
                     </div>

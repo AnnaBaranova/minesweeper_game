@@ -34,10 +34,10 @@ $(document).ready(function () {
     ]
 
 
-    }
+
 
     // DOM selectors
-    
+
     const $boardContainer = $("#board-container");
     const $mineLeftCounter = $("#mineLeft");
     const $restartGame = $("#restart-game");
