@@ -111,7 +111,6 @@ $(document).ready(function () {
                         newCell = $(`<div class="col" id="${i}-${y}">mine</div>`);
                         newCell.css("background-color", "pink");
                     } else {
-                        // const mineAround = game.board[i][y].mineAround;
                         newCell = $(`<div class="col" id="${i}-${y}"></div>`);
                         newCell.css("background-color", game.colors["closedCell"]);
                         if (game.board[i][y].hasFlag) {
@@ -126,7 +125,7 @@ $(document).ready(function () {
             $boardContainer.append(newRow);
         }
     }
-    $boardContainer.contextmenu(function() {
+    $boardContainer.contextmenu(function () {
         return false;
     });
 
@@ -139,45 +138,24 @@ $(document).ready(function () {
             const column = parseInt(splitId[1]);
 
             if (e.which === 1) {
-                clearCellsAround(row, column);
-                checkWinner(row, column);
-                renderBoard();
-            } else if (e.which === 3) {
                 if (!game.board[row][column].hasFlag) {
-                    game.board[row][column].hasFlag = true;
-                    game.mineLeft -= 1;
-                } else {
-                    game.board[row][column].hasFlag = false;
-                    game.mineLeft += 1;
+                    clearCellsAround(row, column);
+                    checkWinner(row, column);
+                    renderBoard();
                 }
-                renderBoard();
+            } else if (e.which === 3) {
+                if (!game.board[row][column].isOpened) {
+                    if (!game.board[row][column].hasFlag) {
+                        game.board[row][column].hasFlag = true;
+                        game.mineLeft -= 1;
+                    } else {
+                        game.board[row][column].hasFlag = false;
+                        game.mineLeft += 1;
+                    }
+                    renderBoard();
+                }
             }
         }
-        // if (e.which === 1) {
-        //     if (!game.gameOver) {
-        //         const getCellId = e.target.id;
-        //         const splitId = getCellId.split("-");
-        //         const row = parseInt(splitId[0]);
-        //         const column = parseInt(splitId[1]);
-
-        //         clearCellsAround(row, column);
-        //         checkWinner(row, column);
-        //         renderBoard();
-        //     }
-        // } else if (e.which === 3) {
-        //     console.log (e.target)
-        //     if (!game.gameOver) {
-        //         const getCellId = e.target.id;
-        //         const splitId = getCellId.split("-");
-        //         const row = parseInt(splitId[0]);
-        //         const column = parseInt(splitId[1]);
-
-        //         game.board[row][column].hasFlag = true;
-        //         console.log(game.board[row][column])
-        //         game.mineLeft -= 1;
-        //         renderBoard();
-        //     }
-        // }
 
     })
 
@@ -195,7 +173,7 @@ $(document).ready(function () {
         while (cellAround.length > 0) {
             const clickedCell = cellAround.pop();
             if (clickedCell.row >= 0 && clickedCell.row < game.level.row && clickedCell.column >= 0 && clickedCell.column < game.level.column) {
-                if (!game.board[clickedCell.row][clickedCell.column].isOpened) {
+                if (!game.board[clickedCell.row][clickedCell.column].isOpened && !game.board[clickedCell.row][clickedCell.column].hasFlag) {
                     game.board[clickedCell.row][clickedCell.column].isOpened = true;
                     if (game.board[clickedCell.row][clickedCell.column].mineAround === 0 && !game.board[clickedCell.row][clickedCell.column].hasMine) {
 
