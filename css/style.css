@@ -9,3 +9,7 @@ body {
 #game-name{
     font-family: 'Creepster', cursive;
 }
+
+.jumbotron {
+    background-color: transparent;
+}
