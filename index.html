@@ -26,7 +26,7 @@
     <!-- jumbotron -->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 text-center" id="game-name">Brains minesweeper</h1>
+            <h1 class="display-4 text-center" id="game-name">Zombie's minesweeper</h1>
             <p class="lead text-center">This is a classic game with new touches</p>
         </div>
     </div>
@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <p class="intro-text text-center">
-                    game Rules
+                    Click <strong>left </strong> mouse button to open a cell. Click <strong>right </strong> mouse button to mark/unmark a mine
                 </p>
             </div>
         </div>
@@ -47,7 +47,39 @@
             <div class="col-lg-4 text-center">Level: <span id="level"></span></div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal for choosing a Game Level -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal fade" id="chooseGameModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ModalLabel">Choose a Level</h5>
+                            </div>
+                            <div class="modal-body" id="chooselevel">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <label class="input-group-text" for="inputGroupSelect01">Levels</label>
+                                    </div>
+                                    <select class="custom-select" id="input-level">
+                                      <option selected>Choose...</option>
+                                      <option class="choose-option" value="easy">easy</option>
+                                      <option class="choose-option" value="medium">medium</option>
+                                      <option class="choose-option" value="hard">hard</option>
+                                      <option class="choose-option" value="insaine">insaine</option>
+                                    </select>
+                                  </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" id="submit" data-dismiss="modal"
+                                    value="submt">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <!-- Modal for Gameover -->
         <div class="row">
             <div class="col-md-12">
                 <div class="modal fade" id="modal">

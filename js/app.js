@@ -27,10 +27,10 @@ $(document).ready(function () {
     }
 
     const levels = [
-        {name: "easy", row: 10, column: 10, mine: 10,},
-        {name: "medium", row: 10, column: 10, mine: 20,},
-        {name: "hard", row: 20, column: 20, mine: 30,},
-        {name: "insaine", row: 10, column: 10, mine: 30,},
+        { name: "easy", row: 8, column: 8, mine: 10, },
+        { name: "medium", row: 10, column: 8, mine: 20, },
+        { name: "hard", row: 10, column: 10, mine: 30, },
+        { name: "insaine", row: 10, column: 10, mine: 30, },
     ]
 
 
@@ -41,15 +41,20 @@ $(document).ready(function () {
     const $boardContainer = $("#board-container");
     const $mineLeftCounter = $("#mineLeft");
     const $restartGame = $("#restart-game");
-    const $gameLavel = $("#level");
+    const $gameLevel = $("#level");
     const $modal = $("#modal");
     const $result = $("#result");
+    const $chooseLevel = $("#chooseGameModal");
+    // const $inputLevel = $(".choose-option");
+    const $submitLevel = $("#submit");
 
 
     function initGame() {
         // function create 2D array board
         game.board = [];
         game.mineLeft = 0;
+        $chooseLevel.modal("show");
+
         for (i = 0; i < game.level.row; i++) {
             const newRow = [];
             for (y = 0; y < game.level.column; y++) {
@@ -65,6 +70,7 @@ $(document).ready(function () {
             game.board.push(newRow);
         }
         game.gameOver = false;
+
 
         // function generateMines
         while (game.mineLeft < game.level.mine) {
@@ -105,7 +111,7 @@ $(document).ready(function () {
 
     function renderBoard() {
         $mineLeftCounter.html(`${game.mineLeft}`);
-        $gameLavel.html(`${game.level.name}`);
+        $gameLevel.html(`${game.level.name}`);
         $boardContainer.html("");
         for (i = 0; i < game.level.row; i++) {
             const newRow = $(`<div class="row" id="row-${i}"></div>`);
@@ -128,7 +134,7 @@ $(document).ready(function () {
                         newCell = $(`<div class="col" id="${i}-${y}"></div>`);
                         newCell.css("background-color", game.colors["closedCell"]);
                         if (game.board[i][y].hasFlag) {
-                            newCell = $(`<div class="col" id="${i}-${y}">Flag</div>`);
+                            newCell = $(`<div class="col" id="${i}-${y}"><img id="${i}-${y}-img" src="img/Plants-Vs-Zombies-PNG-Clipart.png" alt="Flag" width="20" height="20"></div>`);
                             newCell.css("background-color", game.colors["closedCell"]);
                         }
                     }
@@ -142,6 +148,22 @@ $(document).ready(function () {
     $boardContainer.contextmenu(function () {
         return false;
     });
+
+    $submitLevel.on("click", function () {
+        console.log("hhe");
+        const $modalLevel = $("#input-level option:selected").val();
+        console.log($modalLevel);
+        for (i = 0; i < levels.length; i++) {
+            if ($modalLevel === levels[i].name) {
+                game.level = levels[i];
+                console.log(game.level);
+    
+            };
+        }
+        initGame();
+        renderBoard();
+    });
+
 
     $boardContainer.mousedown(function (e) {
         e.preventDefault();
@@ -158,6 +180,7 @@ $(document).ready(function () {
                     renderBoard();
                 }
             } else if (e.which === 3) {
+                // console.log(e.target)
                 if (!game.board[row][column].isOpened) {
                     if (!game.board[row][column].hasFlag) {
                         game.board[row][column].hasFlag = true;
@@ -173,11 +196,14 @@ $(document).ready(function () {
 
     })
 
+
     $restartGame.on("click", function () {
         console.log(game);
         initGame();
         renderBoard();
     })
+
+
 
 
     function clearCellsAround(clickedrow, clickedcolumn) {
