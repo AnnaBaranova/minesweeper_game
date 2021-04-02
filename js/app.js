@@ -45,7 +45,6 @@ $(document).ready(function () {
     const $modal = $("#modal");
     const $result = $("#result");
     const $chooseLevel = $("#chooseGameModal");
-    // const $inputLevel = $(".choose-option");
     const $submitLevel = $("#submit");
 
 
@@ -233,8 +232,12 @@ $(document).ready(function () {
     }
     function checkWinner(row, column) {
         if (game.board[row][column].hasMine) {
+
             $result.html("Ohhhh, it was a MINE");
             $modal.modal("show");
+            const gameOverSound = new Audio("sounds/156031__iwiploppenisse__explosion.mp3");
+            gameOverSound.play();
+
 
             game.gameOver = true;
         } else {
