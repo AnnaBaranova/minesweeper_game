@@ -49,10 +49,13 @@ $(document).ready(function () {
 
 
     function initGame() {
+        // const initGameSound = new Audio("sounds/awooga.ogg");
+        // initGameSound.play();
         // function create 2D array board
         game.board = [];
         game.mineLeft = 0;
         $chooseLevel.modal("show");
+
 
         for (i = 0; i < game.level.row; i++) {
             const newRow = [];
@@ -149,17 +152,19 @@ $(document).ready(function () {
     });
 
     $submitLevel.on("click", function () {
-        console.log("hhe");
+        // console.log("hhe");
         const $modalLevel = $("#input-level option:selected").val();
         console.log($modalLevel);
         for (i = 0; i < levels.length; i++) {
             if ($modalLevel === levels[i].name) {
                 game.level = levels[i];
                 console.log(game.level);
-    
+
             };
         }
         initGame();
+        const initGameSound = new Audio("sounds/awooga.ogg");
+        initGameSound.play();
         renderBoard();
     });
 
@@ -173,12 +178,17 @@ $(document).ready(function () {
             const column = parseInt(splitId[1]);
 
             if (e.which === 1) {
+                const gameOverSound = new Audio("sounds/bleep.ogg");
+                gameOverSound.play();
+
                 if (!game.board[row][column].hasFlag) {
                     clearCellsAround(row, column);
                     checkWinner(row, column);
                     renderBoard();
                 }
             } else if (e.which === 3) {
+                const gameOverSound = new Audio("sounds/bleep.ogg");
+                gameOverSound.play();
                 // console.log(e.target)
                 if (!game.board[row][column].isOpened) {
                     if (!game.board[row][column].hasFlag) {
@@ -245,6 +255,8 @@ $(document).ready(function () {
                 game.gameOver = true;
                 $result.html("you wooooooon!!!!!!");
                 $modal.modal("show");
+                const gameOverSound = new Audio("sounds/bungee_scream.ogg");
+                gameOverSound.play();
             }
         }
 
