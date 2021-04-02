@@ -187,16 +187,18 @@ $(document).ready(function () {
                     renderBoard();
                 }
             } else if (e.which === 3) {
-                const gameOverSound = new Audio("sounds/chime.ogg");
-                gameOverSound.play();
                 // console.log(e.target)
                 if (!game.board[row][column].isOpened) {
                     if (!game.board[row][column].hasFlag) {
                         game.board[row][column].hasFlag = true;
                         game.mineLeft -= 1;
+                        const gameOverSound = new Audio("sounds/chime.ogg");
+                        gameOverSound.play();
                     } else {
                         game.board[row][column].hasFlag = false;
                         game.mineLeft += 1;
+                        const gameOverSound = new Audio("sounds/chime.ogg");
+                        gameOverSound.play();
                     }
                     renderBoard();
                 }
