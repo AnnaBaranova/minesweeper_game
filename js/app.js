@@ -187,7 +187,7 @@ $(document).ready(function () {
                     renderBoard();
                 }
             } else if (e.which === 3) {
-                const gameOverSound = new Audio("sounds/bleep.ogg");
+                const gameOverSound = new Audio("sounds/chime.ogg");
                 gameOverSound.play();
                 // console.log(e.target)
                 if (!game.board[row][column].isOpened) {
