@@ -112,22 +112,22 @@ $(document).ready(function () {
                 let newCell = "";
                 if (game.board[i][y].isOpened) {
                     if (game.board[i][y].hasMine) {
-                        newCell = $(`<div class="col" id="${i}-${y}"><img id="${i}-${y}-img" src="img/PotatoMineHD.png" alt="Mine" width="20" height="20"></div>`);
+                        newCell = $(`<div class="cell" id="${i}-${y}"><img id="${i}-${y}-img" src="img/PotatoMineHD.png" alt="Mine" width="20" height="20"></div>`);
                         newCell.css("background-color", "#ffd700");
                     } else {
                         const mineAround = game.board[i][y].mineAround;
-                        newCell = $(`<div class="col" id="${i}-${y}">${mineAround}</div>`);
-                        newCell.css({ "color": game.colors[mineAround], "background-color": "#fafad2", "font-size": "25px" });
+                        newCell = $(`<div class="cell" id="${i}-${y}">${mineAround}</div>`);
+                        newCell.css({ "color": game.colors[mineAround], "background-color": "#fafad2" });
                     }
                 } else {
                     if (game.gameOver && game.board[i][y].hasMine) {
-                        newCell = $(`<div class="col" id="${i}-${y}"><img id="${i}-${y}-img" src="img/PotatoMineHD.png" alt="Mine" width="20" height="20"></div>`);
+                        newCell = $(`<div class="cell" id="${i}-${y}"><img id="${i}-${y}-img" src="img/PotatoMineHD.png" alt="Mine" width="20" height="20"></div>`);
                         newCell.css("background-color", "#ffd700");
                     } else {
-                        newCell = $(`<div class="col" id="${i}-${y}"></div>`);
+                        newCell = $(`<div class="cell" id="${i}-${y}"></div>`);
                         newCell.css("background-color", game.colors["closedCell"]);
                         if (game.board[i][y].hasFlag) {
-                            newCell = $(`<div class="col" id="${i}-${y}"><img id="${i}-${y}-img" src="img/Plants-Vs-Zombies-PNG-Clipart.png" alt="Flag" width="20" height="20"></div>`);
+                            newCell = $(`<div class="cell" id="${i}-${y}"><img id="${i}-${y}-img" src="img/Plants-Vs-Zombies-PNG-Clipart.png" alt="Flag" width="20" height="20"></div>`);
                             newCell.css("background-color", game.colors["closedCell"]);
                         }
                     }
@@ -236,6 +236,7 @@ $(document).ready(function () {
             const gameOverSound = new Audio("sounds/156031__iwiploppenisse__explosion.mp3");
             gameOverSound.play();
             game.gameOver = true;
+            clearInterval(game.interval);
         } else {
             if (checkAllOpen()) {
                 game.gameOver = true;
@@ -243,6 +244,7 @@ $(document).ready(function () {
                 $modal.modal("show");
                 const gameOverSound = new Audio("sounds/bungee_scream.ogg");
                 gameOverSound.play();
+                clearInterval(game.interval);
             }
         }
 
