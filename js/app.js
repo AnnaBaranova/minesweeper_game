@@ -116,8 +116,13 @@ $(document).ready(function () {
                         newCell.css("background-color", "#ffd700");
                     } else {
                         const mineAround = game.board[i][y].mineAround;
-                        newCell = $(`<div class="cell" id="${i}-${y}">${mineAround}</div>`);
-                        newCell.css({ "color": game.colors[mineAround], "background-color": "#fafad2" });
+                        if (mineAround !== 0) {
+                            newCell = $(`<div class="cell" id="${i}-${y}">${mineAround}</div>`);
+                            newCell.css({ "color": game.colors[mineAround], "background-color": "#fafad2" });
+                        } else {
+                            newCell = $(`<div class="cell" id="${i}-${y}"></div>`);
+                            newCell.css({ "color": game.colors[mineAround], "background-color": "#fafad2" });
+                        };
                     }
                 } else {
                     if (game.gameOver && game.board[i][y].hasMine) {
