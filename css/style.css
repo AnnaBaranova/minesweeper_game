@@ -13,3 +13,13 @@ body {
 .jumbotron {
     background-color: transparent;
 }
+
+#restart-game{
+    margin-top: 20px;
+}
+.restart-game {
+    text-align: center;
+}
+
+
+

@@ -22,7 +22,7 @@
     <script defer src="js/app.js"></script>
 </head>
 
-<body class="container">
+<body class="container-fluid">
     <!-- jumbotron -->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
@@ -41,10 +41,10 @@
         </div>
         <br><br>
         <!-- display timer and mineleft -->
-        <div class="row">
-            <div class="col-lg-4 text-center">Timer: <span id="timer"></span></div>
-            <div class="col-lg-4 text-center">MineLeft: <span id="mineLeft"></span></div>
-            <div class="col-lg-4 text-center">Level: <span id="level"></span></div>
+        <div class="row row-cols-3">
+            <div class="col text-right">Timer: <span id="timer"></span></div>
+            <div class="col text-center">MineLeft: <span id="mineLeft"></span></div>
+            <div class="col text-left">Level: <span id="level"></span></div>
         </div>
 
         <!-- Modal for choosing a Game Level -->
@@ -100,11 +100,11 @@
         </div>
         <!-- <a href="#" data-toggle="modal" data-target="#modal">Open Modal</a> -->
         <!-- board container -->
-        <div class="col-lg-12" id="board-container">
+        <div class="col-lg-12 text-center" id="board-container">
         </div>
 
         <!-- restart button -->
-        <div class="container">
+        <div class="container restart-game">
             <button class="btn btn-danger" id="restart-game">Restart game</button>
         </div>
     </main>

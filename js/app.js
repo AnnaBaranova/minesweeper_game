@@ -13,16 +13,16 @@ $(document).ready(function () {
         timer: 120,
         gameOver: false,
         colors: {
-            0: "light grey",
-            1: "dodgerBlue",
-            2: "tomato",
-            3: "blue",
-            4: "orange",
-            5: "violet",
-            6: "slateBlue",
-            7: "grey",
-            8: "pink",
-            "closedCell": "green",
+            0: "#008080",
+            1: "#000080",
+            2: "#800080",
+            3: "#0000FF",
+            4: "#800000",
+            5: "#800080",
+            6: "#008080",
+            7: "#008000",
+            8: "#ffd700",
+            "closedCell": "#008000",
         }
     }
 
@@ -122,16 +122,16 @@ $(document).ready(function () {
                 if (game.board[i][y].isOpened) {
                     if (game.board[i][y].hasMine) {
                         newCell = $(`<div class="col" id="${i}-${y}">mine</div>`);
-                        newCell.css("background-color", "pink");
+                        newCell.css("background-color", "#ffd700");
                     } else {
                         const mineAround = game.board[i][y].mineAround;
                         newCell = $(`<div class="col" id="${i}-${y}">${mineAround}</div>`);
-                        newCell.css("color", game.colors[mineAround])
+                        newCell.css({"color": game.colors[mineAround], "background-color": "#fafad2"});
                     }
                 } else {
                     if (game.gameOver && game.board[i][y].hasMine) {
                         newCell = $(`<div class="col" id="${i}-${y}">mine</div>`);
-                        newCell.css("background-color", "pink");
+                        newCell.css("background-color", "#ffd700");
                     } else {
                         newCell = $(`<div class="col" id="${i}-${y}"></div>`);
                         newCell.css("background-color", game.colors["closedCell"]);
@@ -141,7 +141,7 @@ $(document).ready(function () {
                         }
                     }
                 }
-                newCell.css("border-style", "dotted");
+                newCell.css("border", "0.2px solid black");
                 newRow.append(newCell);
             }
             $boardContainer.append(newRow);
