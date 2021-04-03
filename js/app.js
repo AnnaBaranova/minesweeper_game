@@ -30,7 +30,7 @@ $(document).ready(function () {
         { name: "easy", row: 8, column: 8, mine: 10, },
         { name: "medium", row: 10, column: 8, mine: 20, },
         { name: "hard", row: 10, column: 10, mine: 30, },
-        { name: "insaine", row: 10, column: 10, mine: 30, },
+        { name: "insane", row: 10, column: 10, mine: 30, },
     ]
 
 
