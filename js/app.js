@@ -3,14 +3,14 @@ $(document).ready(function () {
     // Variables in the global runtime
     const game = {
         level: {
-            name: "easy",
+            name: "",
             row: 10,
             column: 10,
             mine: 10,
+            timer: "",
         },
         board: [],
         mineLeft: 0,
-        timer: 120,
         gameOver: false,
         colors: {
             0: "#008080",
@@ -23,14 +23,15 @@ $(document).ready(function () {
             7: "#008000",
             8: "#ffd700",
             "closedCell": "#008000",
-        }
+        },
+        interval:"",
     }
 
     const levels = [
-        { name: "easy", row: 8, column: 8, mine: 10, },
-        { name: "medium", row: 10, column: 8, mine: 20, },
-        { name: "hard", row: 10, column: 10, mine: 30, },
-        { name: "insane", row: 10, column: 10, mine: 30, },
+        { name: "easy", row: 8, column: 8, mine: 10, timer: "0:15", },
+        { name: "medium", row: 10, column: 8, mine: 20, timer: "2:00", },
+        { name: "hard", row: 10, column: 10, mine: 30, timer: "2:00", },
+        { name: "insane", row: 10, column: 10, mine: 30, timer: "2:00", },
     ]
 
     // DOM selectors
@@ -42,6 +43,7 @@ $(document).ready(function () {
     const $result = $("#result");
     const $chooseLevel = $("#chooseGameModal");
     const $submitLevel = $("#submit");
+    const $timer = $("#timer");
 
 
     function initGame() {
@@ -102,6 +104,7 @@ $(document).ready(function () {
     function renderBoard() {
         $mineLeftCounter.html(`${game.mineLeft}`);
         $gameLevel.html(`${game.level.name}`);
+        // $timer.html(`${game.level.timer}`);
         $boardContainer.html("");
         for (i = 0; i < game.level.row; i++) {
             const newRow = $(`<div class="row" id="row-${i}"></div>`);
@@ -147,7 +150,9 @@ $(document).ready(function () {
         initGame();
         const initGameSound = new Audio("sounds/awooga.ogg");
         initGameSound.play();
+        timerCountDown();
         renderBoard();
+        
     }
 
     function restartGame(evt) {
@@ -155,7 +160,7 @@ $(document).ready(function () {
         renderBoard();
     }
 
-    function handleMouseButtons (evt) {
+    function handleMouseButtons(evt) {
         evt.preventDefault();
         if (!game.gameOver) {
             const getCellId = evt.target.id;
@@ -242,7 +247,6 @@ $(document).ready(function () {
         }
 
     }
-
     function checkAllOpen() {
         for (i = 0; i < game.level.row; i++) {
             for (y = 0; y < game.level.column; y++) {
@@ -253,6 +257,33 @@ $(document).ready(function () {
         }
         return true;
     }
+
+    // set timer
+    function timerCountDown() {
+        clearInterval(game.interval);
+        let timer = game.level.timer;
+        timer = timer.split(":");
+        let minutes = timer[0];
+        let seconds = timer[1];
+        game.interval = setInterval(function () {
+            seconds -= 1;
+            if (seconds < 0 && minutes != 0) {
+                minutes -= 1;
+                seconds = 59;
+            } else if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            if (minutes <= 0 && seconds == 0) {
+                clearInterval(game.interval);
+                game.gameOver=true;
+                $result.html("time is over!!! you lost!!!");
+                $modal.modal("show");
+                const gameOverSound = new Audio("sounds/evillaugh.ogg");
+                gameOverSound.play();
+            }
+                $timer.html(`${minutes}:${seconds}`);
+        }, 1000);
+    };
 
     initGame();
     renderBoard();
