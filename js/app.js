@@ -24,11 +24,11 @@ $(document).ready(function () {
             8: "#ffd700",
             "closedCell": "#008000",
         },
-        interval:"",
+        interval: "",
     }
 
     const levels = [
-        { name: "easy", row: 8, column: 8, mine: 10, timer: "0:15", },
+        { name: "easy", row: 8, column: 8, mine: 10, timer: "3:00", },
         { name: "medium", row: 10, column: 8, mine: 20, timer: "2:00", },
         { name: "hard", row: 10, column: 10, mine: 30, timer: "2:00", },
         { name: "insane", row: 10, column: 10, mine: 30, timer: "2:00", },
@@ -112,16 +112,16 @@ $(document).ready(function () {
                 let newCell = "";
                 if (game.board[i][y].isOpened) {
                     if (game.board[i][y].hasMine) {
-                        newCell = $(`<div class="col" id="${i}-${y}">mine</div>`);
+                        newCell = $(`<div class="col" id="${i}-${y}"><img id="${i}-${y}-img" src="img/PotatoMineHD.png" alt="Mine" width="20" height="20"></div>`);
                         newCell.css("background-color", "#ffd700");
                     } else {
                         const mineAround = game.board[i][y].mineAround;
                         newCell = $(`<div class="col" id="${i}-${y}">${mineAround}</div>`);
-                        newCell.css({ "color": game.colors[mineAround], "background-color": "#fafad2" });
+                        newCell.css({ "color": game.colors[mineAround], "background-color": "#fafad2", "font-size": "25px" });
                     }
                 } else {
                     if (game.gameOver && game.board[i][y].hasMine) {
-                        newCell = $(`<div class="col" id="${i}-${y}">mine</div>`);
+                        newCell = $(`<div class="col" id="${i}-${y}"><img id="${i}-${y}-img" src="img/PotatoMineHD.png" alt="Mine" width="20" height="20"></div>`);
                         newCell.css("background-color", "#ffd700");
                     } else {
                         newCell = $(`<div class="col" id="${i}-${y}"></div>`);
@@ -152,7 +152,7 @@ $(document).ready(function () {
         initGameSound.play();
         timerCountDown();
         renderBoard();
-        
+
     }
 
     function restartGame(evt) {
@@ -275,13 +275,13 @@ $(document).ready(function () {
             }
             if (minutes <= 0 && seconds == 0) {
                 clearInterval(game.interval);
-                game.gameOver=true;
+                game.gameOver = true;
                 $result.html("time is over!!! you lost!!!");
                 $modal.modal("show");
                 const gameOverSound = new Audio("sounds/evillaugh.ogg");
                 gameOverSound.play();
             }
-                $timer.html(`${minutes}:${seconds}`);
+            $timer.html(`${minutes}:${seconds}`);
         }, 1000);
     };
 

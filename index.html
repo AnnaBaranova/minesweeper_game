@@ -34,19 +34,26 @@
     <!-- Rules -->
     <main class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-2"></div>
+            <div class="col-8 text-center">
                 <p class="intro-text text-center">
-                    Click <strong>left </strong> mouse button to open a cell. Click <strong>right </strong> mouse button to mark/unmark a mine
+                    The rule of the game is simple :) The number on a cell shows the number of mines adjacent to it. For
+                    example, if a cell has a "3" on it, then there are 3 mines
+                    next to that cell. The mines could be above, below, right left, or diagonal to the cell. Avoid all
+                    the mines and open all the empty cells to win the game.
+                    Click <strong>left </strong> mouse button to open a cell. Click <strong>right </strong> mouse button
+                    to mark/unmark a mine.
                 </p>
             </div>
+            <div class="col-2"></div>
         </div>
         <br><br>
 
         <!-- display timer and mineleft -->
-        <div class="row row-cols-3">
-            <div class="col text-right">Timer: <span id="timer"></span></div>
-            <div class="col text-center">MineLeft: <span id="mineLeft"></span></div>
-            <div class="col text-left">Level: <span id="level"></span></div>
+        <div class="row">
+            <div class="col-4 text-right">Timer: <span id="timer"></span></div>
+            <div class="col-4 text-center">MineLeft: <span id="mineLeft"></span></div>
+            <div class="col-4 text-left">Level: <span id="level"></span></div>
         </div>
 
         <!-- Modal for choosing a Game Level -->
@@ -61,15 +68,15 @@
                             <div class="modal-body" id="chooselevel">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                      <label class="input-group-text" for="inputGroupSelect01">Levels</label>
+                                        <label class="input-group-text" for="inputGroupSelect01">Levels</label>
                                     </div>
                                     <select class="custom-select" id="input-level">
-                                      <option selected class="choose-option" value="easy">easy</option>
-                                      <option class="choose-option" value="medium">medium</option>
-                                      <option class="choose-option" value="hard">hard</option>
-                                      <option class="choose-option" value="insane">insane</option>
+                                        <option selected class="choose-option" value="easy">easy</option>
+                                        <option class="choose-option" value="medium">medium</option>
+                                        <option class="choose-option" value="hard">hard</option>
+                                        <option class="choose-option" value="insane">insane</option>
                                     </select>
-                                  </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" id="submit" data-dismiss="modal"
@@ -79,7 +86,7 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
 
         <!-- Modal for Gameover -->
         <div class="row">
@@ -102,7 +109,10 @@
         </div>
 
         <!-- board container -->
-        <div class="col-lg-12 text-center" id="board-container">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6 text-center" id="board-container"></div>
+            <div class="col-3"></div>
         </div>
 
         <!-- restart button -->
