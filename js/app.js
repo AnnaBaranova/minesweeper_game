@@ -33,11 +33,7 @@ $(document).ready(function () {
         { name: "insane", row: 10, column: 10, mine: 30, },
     ]
 
-
-
-
     // DOM selectors
-
     const $boardContainer = $("#board-container");
     const $mineLeftCounter = $("#mineLeft");
     const $restartGame = $("#restart-game");
@@ -49,14 +45,10 @@ $(document).ready(function () {
 
 
     function initGame() {
-        // const initGameSound = new Audio("sounds/awooga.ogg");
-        // initGameSound.play();
         // function create 2D array board
         game.board = [];
         game.mineLeft = 0;
         $chooseLevel.modal("show");
-
-
         for (i = 0; i < game.level.row; i++) {
             const newRow = [];
             for (y = 0; y < game.level.column; y++) {
@@ -67,12 +59,10 @@ $(document).ready(function () {
                     mineAround: 0,
                 }
                 newRow.push(cell)
-
             }
             game.board.push(newRow);
         }
         game.gameOver = false;
-
 
         // function generateMines
         while (game.mineLeft < game.level.mine) {
@@ -85,9 +75,9 @@ $(document).ready(function () {
                 surroundMine(randomRow, randomColumn);
             }
         }
-
     }
 
+    // function to add numbers around a cell with a mine
     function surroundMine(row, column) {
         addOneMine(row - 1, column - 1);
         addOneMine(row - 1, column);
@@ -109,8 +99,6 @@ $(document).ready(function () {
         }
     }
 
-
-
     function renderBoard() {
         $mineLeftCounter.html(`${game.mineLeft}`);
         $gameLevel.html(`${game.level.name}`);
@@ -126,7 +114,7 @@ $(document).ready(function () {
                     } else {
                         const mineAround = game.board[i][y].mineAround;
                         newCell = $(`<div class="col" id="${i}-${y}">${mineAround}</div>`);
-                        newCell.css({"color": game.colors[mineAround], "background-color": "#fafad2"});
+                        newCell.css({ "color": game.colors[mineAround], "background-color": "#fafad2" });
                     }
                 } else {
                     if (game.gameOver && game.board[i][y].hasMine) {
@@ -147,47 +135,43 @@ $(document).ready(function () {
             $boardContainer.append(newRow);
         }
     }
-    $boardContainer.contextmenu(function () {
-        return false;
-    });
 
-    $submitLevel.on("click", function () {
-        // console.log("hhe");
+    // Event Handlers
+    function submitLevel(evt) {
         const $modalLevel = $("#input-level option:selected").val();
-        console.log($modalLevel);
         for (i = 0; i < levels.length; i++) {
             if ($modalLevel === levels[i].name) {
                 game.level = levels[i];
-                console.log(game.level);
-
             };
         }
         initGame();
         const initGameSound = new Audio("sounds/awooga.ogg");
         initGameSound.play();
         renderBoard();
-    });
+    }
 
+    function restartGame(evt) {
+        initGame();
+        renderBoard();
+    }
 
-    $boardContainer.mousedown(function (e) {
-        e.preventDefault();
+    function handleMouseButtons (evt) {
+        evt.preventDefault();
         if (!game.gameOver) {
-            const getCellId = e.target.id;
+            const getCellId = evt.target.id;
             const splitId = getCellId.split("-");
             const row = parseInt(splitId[0]);
             const column = parseInt(splitId[1]);
 
-            if (e.which === 1) {
+            if (evt.which === 1) {
                 const gameOverSound = new Audio("sounds/bleep.ogg");
                 gameOverSound.play();
-
                 if (!game.board[row][column].hasFlag) {
                     clearCellsAround(row, column);
                     checkWinner(row, column);
                     renderBoard();
                 }
-            } else if (e.which === 3) {
-                // console.log(e.target)
+            } else if (evt.which === 3) {
                 if (!game.board[row][column].isOpened) {
                     if (!game.board[row][column].hasFlag) {
                         game.board[row][column].hasFlag = true;
@@ -204,30 +188,26 @@ $(document).ready(function () {
                 }
             }
         }
+    }
 
-    })
+    // DOM Events
+    $submitLevel.on("click", submitLevel);
+    $boardContainer.contextmenu(function () {
+        return false;
+    });
+    $boardContainer.mousedown(handleMouseButtons);
+    $restartGame.on("click", restartGame);
 
-
-    $restartGame.on("click", function () {
-        console.log(game);
-        initGame();
-        renderBoard();
-    })
-
-
-
-
+    // function to clean cells around the clicked cell
     function clearCellsAround(clickedrow, clickedcolumn) {
         const cellAround = [];
         cellAround.push({ row: clickedrow, column: clickedcolumn });
-        console.log(cellAround.length)
         while (cellAround.length > 0) {
             const clickedCell = cellAround.pop();
             if (clickedCell.row >= 0 && clickedCell.row < game.level.row && clickedCell.column >= 0 && clickedCell.column < game.level.column) {
                 if (!game.board[clickedCell.row][clickedCell.column].isOpened && !game.board[clickedCell.row][clickedCell.column].hasFlag) {
                     game.board[clickedCell.row][clickedCell.column].isOpened = true;
                     if (game.board[clickedCell.row][clickedCell.column].mineAround === 0 && !game.board[clickedCell.row][clickedCell.column].hasMine) {
-
                         cellAround.push({ row: clickedCell.row - 1, column: clickedCell.column - 1 });
                         cellAround.push({ row: clickedCell.row - 1, column: clickedCell.column });
                         cellAround.push({ row: clickedCell.row - 1, column: clickedCell.column + 1 });
@@ -242,15 +222,14 @@ $(document).ready(function () {
             }
         }
     }
+
+    // function to check a winner
     function checkWinner(row, column) {
         if (game.board[row][column].hasMine) {
-
             $result.html("Ohhhh, it was a MINE");
             $modal.modal("show");
             const gameOverSound = new Audio("sounds/156031__iwiploppenisse__explosion.mp3");
             gameOverSound.play();
-
-
             game.gameOver = true;
         } else {
             if (checkAllOpen()) {
