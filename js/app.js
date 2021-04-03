@@ -25,6 +25,19 @@ $(document).ready(function () {
             "closedCell": "#008000",
         },
         interval: "",
+        result: {
+            loseText: "Ohhhh, it was a MINE",
+            winText: "you wooooooon!!!!!!",
+            timeOverText:"time is over!!! you lost!!!",
+        },
+        sounds: {
+            initGameSound:"sounds/awooga.ogg",
+            clickSound: "sounds/bleep.ogg",
+            addRemoveFlagSound:"sounds/chime.ogg",
+            loseSound:"sounds/156031__iwiploppenisse__explosion.mp3",
+            winSound:"sounds/bungee_scream.ogg",
+            timeOverSound: "sounds/evillaugh.ogg",
+        },
     }
 
     const levels = [
@@ -104,7 +117,6 @@ $(document).ready(function () {
     function renderBoard() {
         $mineLeftCounter.html(`${game.mineLeft}`);
         $gameLevel.html(`${game.level.name}`);
-        // $timer.html(`${game.level.timer}`);
         $boardContainer.html("");
         for (i = 0; i < game.level.row; i++) {
             const newRow = $(`<div class="row" id="row-${i}"></div>`);
@@ -153,7 +165,7 @@ $(document).ready(function () {
             };
         }
         initGame();
-        const initGameSound = new Audio("sounds/awooga.ogg");
+        const initGameSound = new Audio(game.sounds.initGameSound);
         initGameSound.play();
         timerCountDown();
         renderBoard();
@@ -174,8 +186,8 @@ $(document).ready(function () {
             const column = parseInt(splitId[1]);
 
             if (evt.which === 1) {
-                const gameOverSound = new Audio("sounds/bleep.ogg");
-                gameOverSound.play();
+                const clickSound = new Audio(game.sounds.clickSound);
+                clickSound.play();
                 if (!game.board[row][column].hasFlag) {
                     clearCellsAround(row, column);
                     checkWinner(row, column);
@@ -186,13 +198,13 @@ $(document).ready(function () {
                     if (!game.board[row][column].hasFlag) {
                         game.board[row][column].hasFlag = true;
                         game.mineLeft -= 1;
-                        const gameOverSound = new Audio("sounds/chime.ogg");
-                        gameOverSound.play();
+                        const addRemoveFlagSound = new Audio(game.sounds.addRemoveFlagSound);
+                        addRemoveFlagSound.play();
                     } else {
                         game.board[row][column].hasFlag = false;
                         game.mineLeft += 1;
-                        const gameOverSound = new Audio("sounds/chime.ogg");
-                        gameOverSound.play();
+                        const addRemoveFlagSound = new Audio(game.sounds.addRemoveFlagSound);
+                        addRemoveFlagSound.play();
                     }
                     renderBoard();
                 }
@@ -236,24 +248,25 @@ $(document).ready(function () {
     // function to check a winner
     function checkWinner(row, column) {
         if (game.board[row][column].hasMine) {
-            $result.html("Ohhhh, it was a MINE");
+            $result.html(game.result.loseText);
             $modal.modal("show");
-            const gameOverSound = new Audio("sounds/156031__iwiploppenisse__explosion.mp3");
-            gameOverSound.play();
+            const loseSound = new Audio(game.sounds.loseSound);
+            loseSound.play();
             game.gameOver = true;
             clearInterval(game.interval);
         } else {
             if (checkAllOpen()) {
                 game.gameOver = true;
-                $result.html("you wooooooon!!!!!!");
+                $result.html(game.result.winText);
                 $modal.modal("show");
-                const gameOverSound = new Audio("sounds/bungee_scream.ogg");
-                gameOverSound.play();
+                const winSound = new Audio(game.sounds.winSound);
+                winSound.play();
                 clearInterval(game.interval);
             }
         }
-
     }
+
+
     function checkAllOpen() {
         for (i = 0; i < game.level.row; i++) {
             for (y = 0; y < game.level.column; y++) {
@@ -283,10 +296,10 @@ $(document).ready(function () {
             if (minutes <= 0 && seconds == 0) {
                 clearInterval(game.interval);
                 game.gameOver = true;
-                $result.html("time is over!!! you lost!!!");
+                $result.html(game.result.timeOverText);
                 $modal.modal("show");
-                const gameOverSound = new Audio("sounds/evillaugh.ogg");
-                gameOverSound.play();
+                const timeOverSound = new Audio(game.sounds.timeOverSound);
+                timeOverSound.play();
             }
             $timer.html(`${minutes}:${seconds}`);
         }, 1000);
