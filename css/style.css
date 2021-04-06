@@ -5,7 +5,6 @@ body {
 }
 
 .background-img {
-    /* background-image: url("../img/24ET9cd-plants-vs-zombies-wallpaper.jpg"); */
     object-fit: cover;
     width: 100vw;
     height: 100vh;
@@ -14,28 +13,13 @@ body {
     text-align: center;
 
 }
-.background-img>img {
-    /* object-position: right bottom; */
-}
-/* body {
-    background-image: url("../img/24ET9cd-plants-vs-zombies-wallpaper.jpg");
-    object-fit: cover;
-    background-size: fill;
-} */
-/* .main-container {
-    z-index: 1;
-    margin: auto;
-    display: block;
-    border: 1px red solid;
-    width: 100vw;
-    height: 100vh;
-} */
 
 .cell {
     height: 40px;
     width: 40px;
     font-size: 25px;
 }
+
 #game-name{
     font-family: 'Creepster', cursive;
 }

@@ -238,7 +238,6 @@ $(document).ready(function () {
                         cellAround.push({ row: clickedCell.row + 1, column: clickedCell.column - 1 });
                         cellAround.push({ row: clickedCell.row + 1, column: clickedCell.column });
                         cellAround.push({ row: clickedCell.row + 1, column: clickedCell.column + 1 });
-
                     }
                 }
             }
@@ -248,11 +247,11 @@ $(document).ready(function () {
     // function to check a winner
     function checkWinner(row, column) {
         if (game.board[row][column].hasMine) {
+            game.gameOver = true;
             $result.html(game.result.loseText);
             $modal.modal("show");
             const loseSound = new Audio(game.sounds.loseSound);
             loseSound.play();
-            game.gameOver = true;
             clearInterval(game.interval);
         } else {
             if (checkAllOpen()) {

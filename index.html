@@ -27,105 +27,111 @@
         <img src="img/24ET9cd-plants-vs-zombies-wallpaper.jpg" alt="img">
     </div>
     <div class="main-container">
-    <!-- jumbotron -->
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4 text-center" id="game-name">Zombie's minesweeper</h1>
-            <p class="lead text-center">This is a classic game with new touches</p>
-        </div>
-    </div>
-
-    <!-- Rules -->
-    <main class="container">
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8 text-center">
-                <p class="intro-text text-center">
-                    The rule of the game is simple :) The number on a cell shows the number of mines adjacent to it. For
-                    example, if a cell has a "3" on it, then there are 3 mines
-                    next to that cell. The mines could be above, below, right left, or diagonal to the cell. Avoid all
-                    the mines and open all the empty cells to win the game.
-                    Click <strong>left </strong> mouse button to open a cell. Click <strong>right </strong> mouse button
-                    to mark/unmark a mine.
-                </p>
+        <!-- jumbotron -->
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4 text-center" id="game-name">Zombie's minesweeper</h1>
+                <p class="lead text-center">This is a classic game with new touches</p>
             </div>
-            <div class="col-2"></div>
-        </div>
-        <br><br>
 
-        <!-- display timer and mineleft -->
-        <div class="row">
-            <div class="col-4 text-right">Timer: <span id="timer"></span></div>
-            <div class="col-4 text-center">MineLeft: <span id="mineLeft"></span></div>
-            <div class="col-4 text-left">Level: <span id="level"></span></div>
-        </div>
-        <br>
+            <!-- Rules -->
+            <main class="container">
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8 text-center">
+                        <p class="intro-text text-center">
+                            <a href="#collapse" class="btn btn-link btn-block" data-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="collapse">How to play?</a>
+                        </p>
+                        <div class="collapse" id="collapse">
+                            The rule of the game is simple :) The number on a cell shows the number of mines adjacent to
+                            it. For
+                            example, if a cell has a "3" on it, then there are 3 mines
+                            next to that cell. The mines could be above, below, right left, or diagonal to the cell.
+                            Avoid all
+                            the mines and open all the empty cells to win the game.
+                            Click <strong>left </strong> mouse button to open a cell. Click <strong>right </strong>
+                            mouse button
+                            to mark/unmark a mine.
+                        </div>
 
-        <!-- Modal for choosing a Game Level -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="modal fade" id="chooseGameModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ModalLabel">Choose a Level</h5>
-                            </div>
-                            <div class="modal-body" id="chooselevel">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Levels</label>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <br><br>
+
+                <!-- display timer and mineleft -->
+                <div class="row">
+                    <div class="col-4 text-right">Timer: <span id="timer"></span></div>
+                    <div class="col-4 text-center">MineLeft: <span id="mineLeft"></span></div>
+                    <div class="col-4 text-left">Level: <span id="level"></span></div>
+                </div>
+                <br>
+
+                <!-- Modal for choosing a Game Level -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="modal fade" id="chooseGameModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ModalLabel">Choose a Level</h5>
                                     </div>
-                                    <select class="custom-select" id="input-level">
-                                        <option selected class="choose-option" value="easy">easy</option>
-                                        <option class="choose-option" value="medium">medium</option>
-                                        <option class="choose-option" value="hard">hard</option>
-                                        <option class="choose-option" value="insane">insane</option>
-                                    </select>
+                                    <div class="modal-body" id="chooselevel">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="inputGroupSelect01">Levels</label>
+                                            </div>
+                                            <select class="custom-select" id="input-level">
+                                                <option selected class="choose-option" value="easy">easy</option>
+                                                <option class="choose-option" value="medium">medium</option>
+                                                <option class="choose-option" value="hard">hard</option>
+                                                <option class="choose-option" value="insane">insane</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" id="submit" data-dismiss="modal"
+                                            value="submt">Submit</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success" id="submit" data-dismiss="modal"
-                                    value="submt">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal for Gameover -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="modal fade" id="modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ModalLabel">GameOver</h5>
+                                    </div>
+                                    <div class="modal-body" id="result"></div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                            value="Close">Close</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Modal for Gameover -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="modal fade" id="modal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ModalLabel">GameOver</h5>
-                            </div>
-                            <div class="modal-body" id="result"></div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                    value="Close">Close</button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- board container -->
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="centered text-center" id="board-container"></div>
+                    <div class="col-2"></div>
                 </div>
-            </div>
-        </div>
 
-        <!-- board container -->
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="centered text-center" id="board-container"></div>
-            <div class="col-2"></div>
+                <!-- restart button -->
+                <div class="container restart-game">
+                    <button class="btn btn-danger" id="restart-game">Restart game</button>
+                </div>
+            </main>
         </div>
-
-        <!-- restart button -->
-        <div class="container restart-game">
-            <button class="btn btn-danger" id="restart-game">Restart game</button>
-        </div>
-    </main>
-</div>
 </body>
-
 </html>
