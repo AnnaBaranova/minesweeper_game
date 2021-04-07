@@ -41,10 +41,10 @@ $(document).ready(function () {
     }
 
     const levels = [
-        { name: "easy", row: 8, column: 8, mine: 10, timer: "3:00", },
-        { name: "medium", row: 10, column: 8, mine: 20, timer: "2:00", },
-        { name: "hard", row: 10, column: 10, mine: 30, timer: "2:00", },
-        { name: "insane", row: 10, column: 10, mine: 30, timer: "2:00", },
+        { name: "easy", row: 6, column: 6, mine: 5, timer: "3:00", },
+        { name: "medium", row: 10, column: 10, mine: 10, timer: "2:00", },
+        { name: "hard", row: 12, column: 12, mine: 20, timer: "1:30", },
+        { name: "insane", row: 10, column: 10, mine: 20, timer: "1:00", },
     ]
 
     // DOM selectors
