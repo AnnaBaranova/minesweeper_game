@@ -28,14 +28,14 @@ $(document).ready(function () {
         result: {
             loseText: "Ohhhh, it was a MINE",
             winText: "you wooooooon!!!!!!",
-            timeOverText:"time is over!!! you lost!!!",
+            timeOverText: "time is over!!! you lost!!!",
         },
         sounds: {
-            initGameSound:"sounds/awooga.ogg",
+            initGameSound: "sounds/awooga.ogg",
             clickSound: "sounds/bleep.ogg",
-            addRemoveFlagSound:"sounds/chime.ogg",
-            loseSound:"sounds/156031__iwiploppenisse__explosion.mp3",
-            winSound:"sounds/bungee_scream.ogg",
+            addRemoveFlagSound: "sounds/chime.ogg",
+            loseSound: "sounds/156031__iwiploppenisse__explosion.mp3",
+            winSound: "sounds/bungee_scream.ogg",
             timeOverSound: "sounds/evillaugh.ogg",
         },
     }
@@ -58,7 +58,7 @@ $(document).ready(function () {
     const $submitLevel = $("#submit");
     const $timer = $("#timer");
 
-
+    // start Game
     function initGame() {
         // function create 2D array board
         game.board = [];
@@ -247,24 +247,22 @@ $(document).ready(function () {
     // function to check a winner
     function checkWinner(row, column) {
         if (game.board[row][column].hasMine) {
-            game.gameOver = true;
-            $result.html(game.result.loseText);
-            $modal.modal("show");
-            const loseSound = new Audio(game.sounds.loseSound);
-            loseSound.play();
-            clearInterval(game.interval);
+            gameOver(game.result.loseText, game.sounds.loseSound);
         } else {
             if (checkAllOpen()) {
-                game.gameOver = true;
-                $result.html(game.result.winText);
-                $modal.modal("show");
-                const winSound = new Audio(game.sounds.winSound);
-                winSound.play();
-                clearInterval(game.interval);
+                gameOver(game.result.winText, game.sounds.winSound);
             }
         }
     }
 
+    function gameOver(text, sound) {
+        game.gameOver = true;
+        $result.html(text);
+        $modal.modal("show");
+        const audio = new Audio(sound);
+        audio.play();
+        clearInterval(game.interval);
+    }
 
     function checkAllOpen() {
         for (i = 0; i < game.level.row; i++) {
@@ -293,12 +291,7 @@ $(document).ready(function () {
                 seconds = "0" + seconds;
             }
             if (minutes <= 0 && seconds == 0) {
-                clearInterval(game.interval);
-                game.gameOver = true;
-                $result.html(game.result.timeOverText);
-                $modal.modal("show");
-                const timeOverSound = new Audio(game.sounds.timeOverSound);
-                timeOverSound.play();
+                gameOver(game.result.timeOverText, game.sounds.timeOverSound);
             }
             $timer.html(`${minutes}:${seconds}`);
         }, 1000);
