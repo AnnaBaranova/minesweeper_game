@@ -15,11 +15,11 @@
 
 ![Player win](img/winOver.png)
 
-* Lose situations:
+* Loss situations:
 
-![Lose Time Over](img/TimeOver.png)
+![Loss Time Over](img/timeOver.png)
 
-![Lose Find Mine](img/mineOver.png)
+![Loss Find Mine](img/mineOver.png)
 
 4. **My biggest challenges**:
 
