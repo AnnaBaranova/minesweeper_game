@@ -2,6 +2,7 @@
 body {
     display: flex;
     justify-content: center;
+    background-color: rgb(161, 224, 151);
 }
 
 .background-img {
@@ -35,16 +36,14 @@ body {
     text-align: center;
 }
 .centered {
-margin: auto;
+    margin: auto;
 }
 
 @media (max-width: 576px){
     .background-img>img {
         display: none;
     }
-    .background-img {
-        background-color: #ccffff;
-    }
+
     .cell {
         height: 30px;
         width: 30px;
