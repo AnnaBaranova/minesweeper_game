@@ -18,6 +18,7 @@
 * Lose situations:
 
 ![Lose Time Over](img/TimeOver.png)
+
 ![Lose Find Mine](img/mineOver.png)
 
 4. **My biggest challenges**:
