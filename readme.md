@@ -25,7 +25,6 @@
 
 > * Write a function that opens empty cells around the clicked one until it reaches cells with numbers.
 > * Write a function that adds +1 in cells around a cell with a mine.
-> * Write a function that check if all cells without a mine are opened.
 > * Set a timer.
 
 5. **My key learnings**:
@@ -33,7 +32,6 @@
 > * How to build a browser-based game from scratch using the MVC approach,
 > * How to use the Bootstrap library,
 > * How to manipulate with DOM elements using jQuery,
-> * How to write callback functions (eventListeners),
 > * How to write objects and manipulate with them,
 > * How to refactor code,
 > * How to use media queries to build a layout for different screen sizes.
