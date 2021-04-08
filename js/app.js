@@ -57,6 +57,7 @@ $(document).ready(function () {
     const $chooseLevel = $("#chooseGameModal");
     const $submitLevel = $("#submit");
     const $timer = $("#timer");
+    const $backgroundImage = $(".background-img");
 
     // start Game
     function initGame() {
@@ -175,6 +176,7 @@ $(document).ready(function () {
     function restartGame(evt) {
         initGame();
         renderBoard();
+        // $(".background-img").effect("explode");
     }
 
     function handleMouseButtons(evt) {
@@ -248,6 +250,8 @@ $(document).ready(function () {
     function checkWinner(row, column) {
         if (game.board[row][column].hasMine) {
             gameOver(game.result.loseText, game.sounds.loseSound);
+            $backgroundImage.effect("shake");
+            $boardContainer.effect("shake");
         } else {
             if (checkAllOpen()) {
                 gameOver(game.result.winText, game.sounds.winSound);
