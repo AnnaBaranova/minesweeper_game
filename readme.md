@@ -5,7 +5,7 @@
 # **ZOMBIE'S MINESWEEPER**
 
 1. **Technologies used**: HTML, CSS, JavaScript, Bootstrap, jQuery
-2. **Getting started**: [Game link](https://annabaranova.github.io/minesweeper_game/)
+2. **Getting started**: [Play Game](https://annabaranova.github.io/minesweeper_game/)
 3. **Screenshots**:
 * Choose a game level: 
 
