@@ -43,7 +43,7 @@ $(document).ready(function () {
     const levels = [
         { name: "easy", row: 7, column: 7, mine: 5, timer: "3:00", },
         { name: "medium", row: 10, column: 10, mine: 10, timer: "2:00", },
-        { name: "hard", row: 12, column: 12, mine: 20, timer: "1:30", },
+        { name: "hard", row: 12, column: 12, mine: 15, timer: "1:30", },
         { name: "insane", row: 10, column: 10, mine: 20, timer: "1:00", },
     ]
 
@@ -164,7 +164,7 @@ $(document).ready(function () {
             if ($modalLevel === levels[i].name) {
                 game.level = levels[i];
             };
-        }
+        };
         initGame();
         const initGameSound = new Audio(game.sounds.initGameSound);
         initGameSound.play();
@@ -254,8 +254,8 @@ $(document).ready(function () {
         } else {
             if (checkAllOpen()) {
                 gameOver(game.result.winText, game.sounds.winSound);
-                $backgroundImage.effect("bounce", {times: 3}, 3000);
-                $boardContainer.effect("bounce", {times: 3}, 3000);
+                $backgroundImage.effect("bounce", { times: 3 }, 3000);
+                $boardContainer.effect("bounce", { times: 3 }, 3000);
             }
         }
     }
