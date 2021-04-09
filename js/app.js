@@ -91,6 +91,7 @@ $(document).ready(function () {
                 surroundMine(randomRow, randomColumn);
             }
         }
+        console.log(game.board);
     }
 
     // function to add numbers around a cell with a mine

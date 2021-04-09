@@ -31,7 +31,7 @@
 6. **My key learnings**:
 
 > * How to build a browser-based game from scratch using the MVC approach,
-> * How to use the Bootstrap library,
+> * How to use the Bootstrap framework,
 > * How to manipulate with DOM elements using jQuery,
 > * How to write objects and manipulate with them,
 > * How to refactor code,
