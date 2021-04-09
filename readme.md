@@ -1,4 +1,4 @@
-![Game image](img/GamePage.png)
+![Game image](img/MainScreen.png)
 
 ## Project 1 <br> Browser-based Game
 
