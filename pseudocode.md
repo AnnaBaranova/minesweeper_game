@@ -7,7 +7,7 @@
 **Object game**:
 
 - Level is an object, what includes: name: easy, rows: number, columns:number.
-- Object board. It's an array of arrays of sells.
+- Object board. It's an array of arrays of cells.
 - Object cell includes isOpened:t/f, hasMine:t/f, hasFlag:t/f, mineAround:number
 - mines: number
 - mineLeft: number
